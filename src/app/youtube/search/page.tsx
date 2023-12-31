@@ -6,7 +6,18 @@ import axios from "axios";
 import ReactJson from "react-json-view";
 
 const Youtube = () => {
-  const [state, setState] = useState({});
+  const [state, setState] = useState({
+    dataPath: {
+      visibleModal: true,
+      data: [],
+      isLoading: false,
+    },
+    dataQuery: {
+      visibleModal: true,
+      data: [],
+      isLoading: false,
+    },
+  });
 
   const getData = async (url: string, stateName: string) => {
     setState((prev) => ({
