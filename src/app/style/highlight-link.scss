@@ -1,0 +1,28 @@
+.hlink {
+  background: #141414;
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+  pre {
+    background: transparent !important;
+    border: transparent !important;
+    .get {
+      color: green;
+    }
+    .post {
+      color: yellow;
+    }
+  }
+  .cpy_icon {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    visibility: hidden;
+    cursor: pointer;
+  }
+  &:hover {
+    .cpy_icon {
+      visibility: visible;
+    }
+  }
+}
