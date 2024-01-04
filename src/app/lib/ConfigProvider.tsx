@@ -10,7 +10,7 @@ const ConfigProvider = ({ ...props }: ConfigProviderProps) => {
   return (
     <ConfigProviderAntd
       theme={{
-        algorithm: theme?.darkAlgorithm,
+        // algorithm: theme?.darkAlgorithm,
         token: {
           colorPrimary: "#69a4fe",
           fontSize: 20,
