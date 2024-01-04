@@ -1,25 +1,31 @@
 "use client";
 import { useState } from "react";
 import HighlightLink from "@/app/lib/HighlightLink";
-import { Space, Typography, Table, Button, Spin, Modal } from "antd";
+import { Space, Typography, Table, Button, Modal } from "antd";
 import axios from "axios";
-import ReactJson from "react-json-view";
+import dynamic from "next/dynamic";
 
+const DynamicReactJson = dynamic(() => import("react-json-view"), {
+  ssr: false,
+});
+
+type StateShape = {
+  [key: string]: {
+    visibleModal: boolean;
+    data?: any; // Sesuaikan dengan tipe data yang diharapkan
+    isLoading: boolean;
+  };
+};
 const Youtube = () => {
-  const [state, setState] = useState({
-    dataPath: {
-      visibleModal: true,
-      data: [],
-      isLoading: false,
-    },
+  const [state, setState] = useState<StateShape>({
     dataQuery: {
-      visibleModal: true,
-      data: [],
+      visibleModal: false,
+      data: {},
       isLoading: false,
     },
   });
 
-  const getData = async (url: string, stateName: string) => {
+  const getData = async (url: string, stateName: string | any) => {
     setState((prev) => ({
       ...prev,
       [stateName]: {
@@ -28,24 +34,18 @@ const Youtube = () => {
     }));
 
     const { data } = await axios.get(url);
+
     setState((prev) => ({
       ...prev,
       [stateName]: {
+        ...state?.[stateName],
         visibleModal: true,
         data,
         isLoading: false,
       },
     }));
   };
-  const pathData = [
-    {
-      parameter: "yt_list",
-      type: "string",
-      description: "Untuk menampilkan list  video yt",
-      required: "Yes",
-      default: "",
-    },
-  ];
+
   const queryData = [
     {
       parameter: "search_query",
@@ -82,45 +82,6 @@ const Youtube = () => {
       <Typography.Paragraph>
         <HighlightLink text="https://yt-api-scrape.vercel.app/api/yt_list" />
       </Typography.Paragraph>
-      <Typography.Title level={2}>Path</Typography.Title>
-      <Table dataSource={pathData} pagination={false}>
-        <Table.Column title="Parameter" dataIndex="parameter" />
-        <Table.Column title="Type" dataIndex="type" />
-        <Table.Column title="Description" dataIndex="description" />
-        <Table.Column title="Required" dataIndex="required" />
-        <Table.Column title="Default" dataIndex="default" />
-      </Table>
-      <Button
-        loading={state?.["dataPath"]?.isLoading}
-        size="large"
-        onClick={() => {
-          getData("https://yt-api-scrape.vercel.app/api/yt_list", "dataPath");
-        }}
-      >
-        Test Request
-      </Button>
-
-      <Modal
-        width="100vw"
-        style={{ height: "100vh" }}
-        footer={false}
-        open={state?.["dataPath"]?.visibleModal}
-        onCancel={() => {
-          setState((prev) => ({
-            ...prev,
-            dataPath: {
-              ...state?.dataPath,
-              visibleModal: false,
-            },
-          }));
-        }}
-      >
-        <ReactJson
-          src={state?.["dataPath"]?.data}
-          theme="tomorrow"
-          collapsed={1}
-        />
-      </Modal>
       <Typography.Title level={2}>Query</Typography.Title>
       <Typography.Paragraph>
         <HighlightLink text="https://yt-api-scrape.vercel.app/api/yt_list?search_query=rikiki%20kun&lang=en&type=video" />
@@ -160,11 +121,15 @@ const Youtube = () => {
           }));
         }}
       >
-        <ReactJson
-          src={state?.["dataQuery"]?.data}
-          theme="tomorrow"
-          collapsed={1}
-        />
+        {Object.keys(state?.dataQuery?.data || "{}")?.length > 0 ? (
+          <DynamicReactJson
+            src={state?.dataQuery?.data}
+            theme="tomorrow"
+            collapsed={1}
+          />
+        ) : (
+          <></>
+        )}
       </Modal>
     </Space>
   );
