@@ -22,9 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <ConfigProvider>
-            <Layout>{children}</Layout>
-          </ConfigProvider>
+          {/* <ConfigProvider> */}
+          <Layout>{children}</Layout>
+          {/* </ConfigProvider> */}
         </StyledComponentsRegistry>
       </body>
     </html>
