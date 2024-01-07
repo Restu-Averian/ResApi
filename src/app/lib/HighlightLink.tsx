@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
-import { Button } from "antd";
 import "../style/highlight-link.scss";
 import { CopyOutlined, CheckOutlined } from "@ant-design/icons";
+import { Button, IconButton } from "@chakra-ui/react";
 
 const HighlightLink_ = ({
   text,
@@ -25,9 +25,13 @@ const HighlightLink_ = ({
         <span className={httpReqType?.toLowerCase()}>[{httpReqType}]</span>{" "}
         {text}
       </pre>
-      <Button
-        className="cpy_icon"
+      <IconButton
+        aria-label="Search database"
         icon={isClicked ? <CheckOutlined /> : <CopyOutlined />}
+        className="cpy_icon"
+        colorScheme="blue"
+        variant="ghost"
+        borderRadius={10}
         onClick={() => {
           navigator.clipboard.writeText(text);
           setIsClicked(true);

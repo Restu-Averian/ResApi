@@ -1,9 +1,13 @@
 "use client";
 import { useState } from "react";
 import HighlightLink from "@/app/lib/HighlightLink";
-import { Space, Typography, Table, Button, Modal } from "antd";
 import axios from "axios";
 import dynamic from "next/dynamic";
+import { Box, Button, Heading, Stack, Text } from "@chakra-ui/react";
+import Table from "rc-table";
+import "../../style/table.scss";
+import ModalResApi from "@/app/lib/ModalResApi";
+import Section from "@/app/lib/Section";
 
 const DynamicReactJson = dynamic(() => import("react-json-view"), {
   ssr: false,
@@ -71,47 +75,61 @@ const Youtube = () => {
   ];
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
-      <Typography.Title level={1} style={{ fontWeight: "bold" }}>
-        Search
-      </Typography.Title>
-      <Typography.Paragraph>
-        Api untuk search yt dan juga nonton
-      </Typography.Paragraph>
-      <Typography.Title level={2}>Base URL</Typography.Title>
-      <Typography.Paragraph>
-        <HighlightLink text="https://yt-api-scrape.vercel.app/api/yt_list" />
-      </Typography.Paragraph>
-      <Typography.Title level={2}>Query</Typography.Title>
-      <Typography.Paragraph>
-        <HighlightLink text="https://yt-api-scrape.vercel.app/api/yt_list?search_query=rikiki%20kun&lang=en&type=video" />
-      </Typography.Paragraph>
-      <Table dataSource={queryData} pagination={false}>
-        <Table.Column title="Parameter" dataIndex="parameter" />
-        <Table.Column title="Type" dataIndex="type" />
-        <Table.Column title="Description" dataIndex="description" />
-        <Table.Column title="Required" dataIndex="required" />
-        <Table.Column title="Default" dataIndex="default" />
-      </Table>
-      <Button
-        size="large"
-        loading={state?.["dataQuery"]?.isLoading}
-        onClick={() => {
-          getData(
-            "https://yt-api-scrape.vercel.app/api/yt_list?search_query=rikiki%20kun&lang=en&type=video",
-            "dataQuery"
-          );
-        }}
-      >
-        Test Request
-      </Button>
+    <Stack spacing={10}>
+      <Section>
+        <Heading>Search</Heading>
+        <Text>Api untuk search yt dan juga nonton</Text>
+      </Section>
+      <Section>
+        <Heading as="h3" fontSize="xl">
+          Base URL
+        </Heading>
+        <Text>
+          <HighlightLink text="https://yt-api-scrape.vercel.app/api/yt_list" />
+        </Text>
+      </Section>
+      <Section>
+        <Heading as="h3" fontSize="xl">
+          Query
+        </Heading>
+        <Text>
+          <HighlightLink text="https://yt-api-scrape.vercel.app/api/yt_list?search_query=rikiki%20kun&lang=en&type=video" />
+        </Text>
+        <Table data={queryData}>
+          <Table.Column
+            title="Parameter"
+            dataIndex="parameter"
+            key="parameter"
+          />
+          <Table.Column title="Type" dataIndex="type" key="type" />
+          <Table.Column
+            title="Description"
+            dataIndex="description"
+            key="description"
+          />
+          <Table.Column title="Required" dataIndex="required" key="required" />
+          <Table.Column title="Default" dataIndex="default" key="default" />
+        </Table>
+      </Section>
 
-      <Modal
-        width="100vw"
-        style={{ height: "100vh" }}
-        footer={false}
-        open={state?.["dataQuery"]?.visibleModal}
-        onCancel={() => {
+      <Section>
+        <Button
+          colorScheme="blue"
+          isLoading={state?.["dataQuery"]?.isLoading}
+          onClick={() => {
+            getData(
+              "https://yt-api-scrape.vercel.app/api/yt_list?search_query=rikiki%20kun&lang=en&type=video",
+              "dataQuery"
+            );
+          }}
+        >
+          Test Request
+        </Button>
+      </Section>
+
+      <ModalResApi
+        isOpen={state?.["dataQuery"]?.visibleModal}
+        onClose={() => {
           setState((prev) => ({
             ...prev,
             dataQuery: {
@@ -130,8 +148,8 @@ const Youtube = () => {
         ) : (
           <></>
         )}
-      </Modal>
-    </Space>
+      </ModalResApi>
+    </Stack>
   );
 };
 export default Youtube;

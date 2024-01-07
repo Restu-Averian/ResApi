@@ -11,13 +11,18 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.2",
     "@ant-design/icons": "^5.2.6",
-    "antd": "^5.12.6",
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "axios": "^1.6.3",
+    "framer-motion": "^10.17.6",
     "next": "14.0.4",
+    "rc-menu": "^9.12.4",
+    "rc-table": "^7.36.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-json-view": "^1.21.3",
-    "react-json-view-lite": "^1.2.1"
+    "react-json-view": "^1.21.3"
   },
   "devDependencies": {
     "@types/node": "^20",

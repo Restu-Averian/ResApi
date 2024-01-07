@@ -1,30 +1,21 @@
 "use client";
 
-import { Layout as LayoutAntd } from "antd";
 import React, { ReactNode } from "react";
+import { Box, Stack } from "@chakra-ui/react";
 import Sider from "../components/layout/Sider";
 
 type LayoutProps = {
   children: ReactNode;
 };
 
-const { Content } = LayoutAntd;
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <LayoutAntd hasSider>
+    <Stack direction="row" position="relative" bg="#F8F8F8">
       <Sider />
-      {/* <LayoutAntd style={{ width: "100% !important" }}> */}
-      <Content
-        style={{
-          width: "100%",
-          margin: "24px 16px",
-          overflow: "initial",
-        }}
-      >
+      <Box width="100%" margin="24px 16px">
         {children}
-      </Content>
-      {/* </LayoutAntd> */}
-    </LayoutAntd>
+      </Box>
+    </Stack>
   );
 };
 export default Layout;

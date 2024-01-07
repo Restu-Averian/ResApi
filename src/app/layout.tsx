@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import StyledComponentsRegistry from "./lib/AntdRegistry";
 import Layout from "./lib/Layout";
-import ConfigProvider from "./lib/ConfigProvider";
-import "react-json-view-lite/dist/index.css";
+// import "react-json-view-lite/dist/index.css";
 import "./style/global.scss";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <StyledComponentsRegistry>
-          {/* <ConfigProvider> */}
+        <ChakraProvider>
           <Layout>{children}</Layout>
-          {/* </ConfigProvider> */}
-        </StyledComponentsRegistry>
+        </ChakraProvider>
       </body>
     </html>
   );
