@@ -1,5 +1,4 @@
 "use client";
-
 import Loading from "@/app/lib/Loading";
 import dynamic from "next/dynamic";
 
@@ -7,7 +6,7 @@ const ContentDocs = dynamic(() => import("@/app/lib/ContentDocs"), {
   ssr: false,
   loading: () => <Loading />,
 });
-const Youtube = () => {
+const YoutubeDetail = () => {
   const queryData = [
     {
       parameter: "search_query",
@@ -34,11 +33,11 @@ const Youtube = () => {
 
   return (
     <ContentDocs
-      baseUrl="https://yt-api-scrape.vercel.app/api/yt_list?search_query=rikiki%20kun&lang=en&type=video"
-      description="Api untuk search yt dan juga nonton"
+      baseUrl="https://yt-api-scrape.vercel.app/api/detail"
+      description="Api untuk Detail yt dan juga nonton"
+      title="Detail"
       tableData={queryData}
-      title="Search"
     />
   );
 };
-export default Youtube;
+export default YoutubeDetail;

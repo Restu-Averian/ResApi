@@ -22,7 +22,7 @@ const ModalResApi = ({
   ...props
 }: ModalChakraProps) => {
   return (
-    <ModalChakra {...props}>
+    <ModalChakra {...props} size="full">
       <ModalOverlay />
       <ModalContent>
         {title && <ModalHeader>{title}</ModalHeader>}
