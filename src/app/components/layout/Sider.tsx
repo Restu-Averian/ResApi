@@ -20,6 +20,9 @@ const Sider = () => {
   const router = useRouter();
 
   const [open, setOpen] = useState<boolean>(true);
+  const isMenuHvChildren = useCallback((menu: menuDataType) => {
+    return menu?.children && menu?.children?.length > 0;
+  }, []);
 
   const menuData: menuDataType[] = [
     {
@@ -79,27 +82,29 @@ const Sider = () => {
           overflow: "hidden",
         }}
       >
-        {menuData?.map((menu) => (
-          <Fragment key={menu?.key}>
-            {!isMenuHvChildren(menu) && (
-              <MenuItem onClick={() => router.push(menu?.key || "")}>
-                {open ? menu?.label : menu?.icon}
-              </MenuItem>
-            )}
-            {isMenuHvChildren(menu) && (
-              <SubMenu title={open ? menu?.label : menu?.icon}>
-                {menu?.children?.map((subMenu) => (
-                  <MenuItem
-                    key={subMenu?.key}
-                    onClick={() => router.push(subMenu?.key || "")}
+                {isMenuHvChildren(menu) ? (
+                  <SubMenu
+                    key={menu?.key || "submenu"}
+                    title={open ? menu?.label : menu?.icon}
                   >
-                    {subMenu?.label}
+                    {menu?.children?.map((subMenu) => (
+                      <MenuItem
+                        key={subMenu?.key}
+                        onClick={() => router.push(subMenu?.key || "")}
+                      >
+                        {subMenu?.label}
+                      </MenuItem>
+                    ))}
+                  </SubMenu>
+                ) : (
+                  <MenuItem
+                    key={menu?.key}
+                    onClick={() => router.push(menu?.key || "")}
+                  >
+                    {open ? menu?.label : menu?.icon}
                   </MenuItem>
-                ))}
-              </SubMenu>
-            )}
-          </Fragment>
-        ))}
+                )}
+              </Fragment>
       </Menu>
       <RightCircleFilled
         style={{
