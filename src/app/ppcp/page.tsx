@@ -5,7 +5,7 @@ import Loading from "../lib/Loading";
 import { tableDataProps } from "@/app/lib/ContentDocs";
 
 const ContentDocs = dynamic(() => import("@/app/lib/ContentDocs"), {
-  ssr: false,
+  // ssr: false,
   loading: () => <Loading />,
 });
 const LofiAlbum = () => {
