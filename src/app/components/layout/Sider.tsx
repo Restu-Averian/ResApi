@@ -28,42 +28,36 @@ const Sider = () => {
     {
       key: "/ppcp",
       icon: <YoutubeFilled />,
-      label: <Link href="/ppcp">PP Couple</Link>,
+      label: (
+        <Link href="/ppcp" prefetch={false}>
+          PP Couple
+        </Link>
+      ),
     },
-    {
-      icon: <CaretRightOutlined />,
-      key: "/lofi",
-      label: "Lofi",
-      children: [
-        {
-          key: "/lofi/album",
-          label: <Link href="/lofi/album">Album</Link>,
-        },
-        {
-          key: "/lofi/releases",
-          label: <Link href="/lofi/releases">Releases</Link>,
-        },
-      ],
-    },
+
     {
       icon: <YoutubeFilled />,
       label: "Youtube",
       children: [
         {
           key: "/youtube/search",
-          label: <Link href="/youtube/search">Search</Link>,
+          label: (
+            <Link href="/youtube/search" prefetch={false}>
+              Search
+            </Link>
+          ),
         },
         {
           key: "/youtube/detail",
-          label: <Link href="/youtube/detail">Detail</Link>,
+          label: (
+            <Link href="/youtube/detail" prefetch={false}>
+              Detail
+            </Link>
+          ),
         },
       ],
     },
   ];
-
-  const isMenuHvChildren = useCallback((menu: menuDataType) => {
-    return menu?.children && menu?.children?.length > 0;
-  }, []);
 
   return (
     <>
