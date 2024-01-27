@@ -82,6 +82,10 @@ const Sider = () => {
           overflow: "hidden",
         }}
       >
+        {menuData?.length > 0 ? (
+          <>
+            {menuData?.map((menu) => (
+              <Fragment key={menu?.key}>
                 {isMenuHvChildren(menu) ? (
                   <SubMenu
                     key={menu?.key || "submenu"}
@@ -105,6 +109,11 @@ const Sider = () => {
                   </MenuItem>
                 )}
               </Fragment>
+            ))}
+          </>
+        ) : (
+          <>No Menu</>
+        )}
       </Menu>
       <RightCircleFilled
         style={{
