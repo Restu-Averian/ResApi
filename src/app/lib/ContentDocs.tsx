@@ -1,8 +1,8 @@
 "use client";
 import { Suspense, memo, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import dynamic from "next/dynamic";
-import { Button, Heading, Stack, Text } from "@chakra-ui/react";
+import { Button, Heading, Stack, Text, useToast } from "@chakra-ui/react";
 import Table from "rc-table";
 import ModalResApi from "@/app/lib/ModalResApi";
 import Section from "@/app/lib/Section";
@@ -17,7 +17,7 @@ const HighlightLink = dynamic(() => import("@/app/lib/HighlightLink"), {
   loading: () => <Loading isCenterEle={false} />,
 });
 
-interface tableDataProps {
+export interface tableDataProps {
   parameter: string;
   type?: string;
   description: string;
@@ -57,20 +57,32 @@ const ContentDocs_ = ({
     isLoading: false,
   });
 
+  const toast = useToast();
+
   const getData = async (url: string) => {
     setState((prev) => ({
       ...prev,
       isLoading: true,
     }));
+    try {
+      const { data } = await axios.get(url);
 
-    const { data } = await axios.get(url);
-
-    setState((prev) => ({
-      ...prev,
-      visibleModal: true,
-      data,
-      isLoading: false,
-    }));
+      setState((prev) => ({
+        ...prev,
+        visibleModal: true,
+        data,
+      }));
+    } catch (e: AxiosError | any) {
+      toast({
+        status: "error",
+        title: e?.response?.data?.message,
+      });
+    } finally {
+      setState((prev) => ({
+        ...prev,
+        isLoading: false,
+      }));
+    }
   };
 
   return (
