@@ -12,11 +12,13 @@ type menuDataType = {
   icon?: ReactNode;
   key?: string;
 };
+
 const Sider = () => {
   const pathname = usePathname();
   const router = useRouter();
 
   const [open, setOpen] = useState<boolean>(true);
+
   const isMenuHvChildren = useCallback((menu: menuDataType) => {
     return menu?.children && menu?.children?.length > 0;
   }, []);
@@ -110,19 +112,7 @@ const Sider = () => {
           <>No Menu</>
         )}
       </Menu>
-      <RightCircleFilled
-        style={{
-          fontSize: 28,
-          position: "absolute",
-          top: "50%",
-          left: open ? "13.8%" : "4.5%",
-          transform: "translate(50%,0%)",
-          rotate: open ? "0deg" : "180deg",
-          transition: "all 300ms",
-          zIndex: 1,
-        }}
-        onClick={() => setOpen(!open)}
-      />
+      <SiderToggleButton open={open} onToggle={onToggle} />
     </>
   );
 };
