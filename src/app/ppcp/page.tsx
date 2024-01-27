@@ -2,39 +2,26 @@
 
 import dynamic from "next/dynamic";
 import Loading from "../lib/Loading";
+import { tableDataProps } from "@/app/lib/ContentDocs";
 
 const ContentDocs = dynamic(() => import("@/app/lib/ContentDocs"), {
   ssr: false,
   loading: () => <Loading />,
 });
 const LofiAlbum = () => {
-  const queryData = [
+  const queryData: tableDataProps[] = [
     {
-      parameter: "search_query",
-      type: "string",
-      description: "Untuk mencari video yt",
-      required: "Yes",
+      parameter: "num",
+      type: "number",
+      description: "just random the number while requesting this api",
+      required: "No",
       default: "",
-    },
-    {
-      parameter: "type",
-      type: "any|video|channel|playlist|movie|live",
-      description: "Untuk type video",
-      required: "No",
-      default: "any",
-    },
-    {
-      parameter: "lang",
-      type: "string",
-      description: "Untuk bahasa di outputnya",
-      required: "No",
-      default: "en",
     },
   ];
 
   return (
     <ContentDocs
-      baseUrl="https://ppcp-api-scrape.vercel.app/api"
+      baseUrl="https://ppcp-api-scrape.vercel.app/api?num=1"
       description="Api untuk generate pp couple"
       title="PP Couple"
       tableData={queryData}
