@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import "../style/highlight-link.scss";
 import { CopyOutlined, CheckOutlined } from "@ant-design/icons";
-import { Button, IconButton } from "@chakra-ui/react";
+import { IconButton, Kbd } from "@chakra-ui/react";
 
 const HighlightLink_ = ({
   text,
@@ -21,10 +21,12 @@ const HighlightLink_ = ({
         }, 250);
       }}
     >
-      <pre>
-        <span className={httpReqType?.toLowerCase()}>[{httpReqType}]</span>{" "}
-        {text}
-      </pre>
+      <span className="link">
+        <Kbd>
+          <span className={httpReqType?.toLowerCase()}>[{httpReqType}]</span>
+          {text}
+        </Kbd>
+      </span>
       <IconButton
         aria-label="Search database"
         icon={isClicked ? <CheckOutlined /> : <CopyOutlined />}
