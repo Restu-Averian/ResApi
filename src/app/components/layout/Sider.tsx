@@ -24,6 +24,10 @@ const Sider = () => {
     return menu?.children && menu?.children?.length > 0;
   }, []);
 
+  const onToggle = useCallback(() => {
+    setOpen(!open);
+  }, [open]);
+
   const menuData: menuDataType[] = [
     {
       key: "/ppcp",
