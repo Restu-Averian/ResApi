@@ -103,7 +103,7 @@ const ContentDocs_ = ({
       </Section>
 
       <Section spacing={5}>
-        <Table data={tableData}>
+        <Table data={tableData} rowKey="description">
           <Table.Column
             title="Parameter"
             dataIndex="parameter"
