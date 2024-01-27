@@ -13,7 +13,7 @@ const DynamicReactJson = dynamic(() => import("react-json-view"), {
   ssr: false,
 });
 const HighlightLink = dynamic(() => import("@/app/lib/HighlightLink"), {
-  ssr: false,
+  // ssr: ,
   loading: () => <Loading isCenterEle={false} />,
 });
 
@@ -95,11 +95,7 @@ const ContentDocs_ = ({
         <Heading as="h3" fontSize="xl">
           Base URL
         </Heading>
-        <Suspense fallback={<>Loading...</>}>
-          <Text>
-            <HighlightLink text={baseUrl} />
-          </Text>
-        </Suspense>
+        <HighlightLink text={baseUrl} />
       </Section>
 
       <Section spacing={5}>
