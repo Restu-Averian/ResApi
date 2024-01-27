@@ -3,11 +3,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { Fragment, ReactNode, useCallback, useState } from "react";
 import Menu, { SubMenu, MenuItem } from "rc-menu";
 import "rc-menu/assets/index.css";
-import {
-  CaretRightOutlined,
-  RightCircleFilled,
-  YoutubeFilled,
-} from "@ant-design/icons";
+import { YoutubeFilled } from "@ant-design/icons";
+import SiderToggleButton from "./SiderToggleButton";
 
 type menuDataType = {
   label: ReactNode | string;
